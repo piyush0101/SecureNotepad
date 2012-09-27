@@ -100,7 +100,7 @@
 <div id="container">
   <div id="header">
     <% if !session[:token].nil? -%>
-        <div style="float:right;"><%= link_to('Logout', :action => 'logout') %></div>
+        <div style="float:right;"><%= link_to('Logout', '/doclist/logout') %></div>
     <% end -%>
 
     <div id="navbar">

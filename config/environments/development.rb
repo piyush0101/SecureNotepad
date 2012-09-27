@@ -35,8 +35,5 @@ SecureNotepad::Application.configure do
   # Expands the lines which load the assets
   config.assets.debug = true
 
-  require 'rack/ssl'
-  config.middleware.use Rack::SSL
-
 
 end

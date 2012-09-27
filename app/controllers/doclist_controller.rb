@@ -99,10 +99,10 @@ class DoclistController < ApplicationController
     if !params[:emails].nil?
       for email in params[:emails]
         entry = <<-EOF
-          <entry xmlns='http://www.w3.org/2005/Atom'
-                 xmlns:gAcl='http://schemas.google.com/acl/2007'>
-            <category scheme='http://schemas.google.com/g/2005#kind'
-                      term='http://schemas.google.com/acl/2007#accessRule'/>
+          <entry xmlns='https://www.w3.org/2005/Atom'
+                 xmlns:gAcl='https://schemas.google.com/acl/2007'>
+            <category scheme='https://schemas.google.com/g/2005#kind'
+                      term='https://schemas.google.com/acl/2007#accessRule'/>
             <gAcl:role value='#{@role}'/>
             <gAcl:scope type='user' value='#{email}'/>
           </entry>
