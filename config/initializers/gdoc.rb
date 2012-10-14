@@ -48,7 +48,7 @@ module GDoc
       @links = {}
       @type = options[:type] || ''
       @last_updated = options[:last_updated] || DateTime.new
-      @last_viewed = options[:last_viewed] || DateTime.new
+      @last_viewed = options[:set_last_viewed] || DateTime.new
       @xml = options[:xml] || nil
       @permissions = {'owner' => [], 'reader' => [], 'writer' => []}
     end

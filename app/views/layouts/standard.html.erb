@@ -2,94 +2,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
   <title>Google DocList Manager</title>
-  <%= stylesheet_link_tag "style" %>
-  <%= javascript_include_tag "//ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "jquery.rails.js", "application.js" %>
-  <% javascript_tag do -%>
-      function setDocsListLoadingMsg(id, msg) {
-      $(id).getElementsByClassName('list')[0].update('
-      <div class="loading"><img src="/images/ajax-loader.gif"> ' + msg + '</div>
-      ');
-      }
-      function setLoadingMsg(id, msg) {
-      $(id).update('
-      <div class="loading"><img src="/images/ajax-loader.gif"> ' + msg + '</div>
-      ');
-      }
-
-      document.observe('dom:loaded', function() {
-      if ($('documents_data')) {
-      $('documents_data').observe('click', function(event) {
-      var el = event.element();
-      if (el.tagName == 'LI') {
-      el.up().childElements().each(function(item) {
-      item.removeClassName('selected');
+  <%= stylesheet_link_tag "/stylesheets/style" %>
+  <%= javascript_include_tag "https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js", "jquery.rails.js", "application.js" %>
+  <script type="text/javascript">
+      $(document).ready(function () {
+          $('.preview_link')
+                  .bind("ajax:beforeSend", function () {
+                      $("#doc_view").html('')
+                      $("#doc_preview").html("<div class='loading'> <img src='/images/ajax-loader-small.gif' />  </div>")
+                  })
+                  .bind("ajax:success", function (evt, data, status, xhr) {
+                      $("#doc_preview").html(data)
+                  });
       });
-      el.toggleClassName('selected');
-      }
-      });
-      }
-
-      if ($('doc_preview')) {
-      $('doc_preview').observe('click', function(event) {
-      var el = event.element();
-      if (el.tagName == 'LI' && el.up('#contacts')) {
-      el.toggleClassName('selected');
-      checkbox = el.childElements("input[type='checkbox']")[0];
-      checkbox.checked = checkbox.checked ? false : true;
-      } else if (el.tagName == 'INPUT' && el.type == 'checkbox') {
-      el.up().toggleClassName('selected');
-      }
-      });
-      }
-      });
-
-      jquery(function($)
-      {
-        var docsLoading = function(id, msg)
-        {
-                $(id).getElementsByClassName('list')[0].
-                    update('<div class="loading"><img src="/images/ajax-loader-small.gif"> ' + msg + '</div>');
-        }
-
-        var genericLoading = function(id, msg)
-        {
-                $(id).update('<div class="loading"><img src="/images/ajax-loader-small.gif"> ' + msg + '</div>');
-        }
-
-        $("#doclink")
-            .bind("ajax:loading", docsLoading('documents_data', 'loading word documents...'))
-            .bind("ajax:complete", docsLoading('documents_data', 'loading word documents...'))
-            .bind("ajax:success", function(event, data, status, xhr)
-                {
-                    $("#documents_data").html(data)
-                });
-
-        $("#sheetlink")
-            .bind("ajax:loading", docsLoading('documents_data', 'loading spread sheets'))
-            .bind("ajax:complete", docsLoading('documents_data', 'loading spread sheets'))
-            .bind("ajax:success", function(event, data, status, xhr)
-                {
-                    $("#documents_data").html(data)
-                });
-
-        $("#presolink")
-            .bind("ajax:loading", docsLoading('documents_data', 'loading presentations'))
-            .bind("ajax:complete", docsLoading('documents_data', 'loading presentations'))
-            .bind("ajax:success", function(event, data, status, xhr)
-                {
-                    $("#documents_data").html(data)
-                });
-
-        $("#pdflink")
-            .bind("ajax:loading", docsLoading('documents_data', 'loading pdfs'))
-            .bind("ajax:complete", docsLoading('documents_data', 'loading pdfs'))
-            .bind("ajax:success", function(event, data, status, xhr)
-                {
-                    $("#documents_data").html(data)
-                });
-      });
-
-  <% end -%>
+  </script>
 </head>
 <body>
 
@@ -105,10 +31,6 @@
 
     <div id="navbar">
 
-      <%= link_to image_tag("/images/icon_document.jpeg")+'Documents', '/doclist/documents', :id => 'doclink', :remote => true %>
-      <%= link_to image_tag("/images/icon_spreadsheet.png")+'Spreadsheets', '/doclist/spreadsheets', :id => 'sheetlink', :remote => true %>
-      <%= link_to image_tag("/images/icon_presentation.png")+'Presentations', '/doclist/presentations', :id => 'presolink', :remote => true %>
-      <%= link_to image_tag("/images/icon_pdf.png")+'PDFs', '/doclist/pdf', :id => 'pdflink', :remote => true %>
 
     </div>
   </div>
@@ -119,9 +41,11 @@
         <%= link_to('Authorize this website', @authsub_link) %>
     <% else -%>
         <%= yield -%>
-        <div id="doc_preview">Select a document to view</div>
     <% end -%>
   </div>
+  <div id="doc_preview">Select a document to view</div>
+  <div id="doc_view"></div>
+
 </div>
 
 </body>

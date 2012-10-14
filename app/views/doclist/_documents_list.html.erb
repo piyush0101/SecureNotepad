@@ -6,10 +6,8 @@
   <div class="list">
     <ul>
       <% @documents.sort.each do |doc| -%>
-
           <li>
-            <%= link_to doc.title, '/doclist/all', :id => 'previewlink', :remote => true %>
-
+            <%= link_to doc.title, doclist_path(doc.doc_id), :class => 'preview_link', :remote => 'true' %>
           </li>
       <% end -%>
     </ul>

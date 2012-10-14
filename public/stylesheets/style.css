@@ -178,3 +178,13 @@ li {
 #doc_preview #permission_list strong {
     color:#000066;
 }
+
+#doc_view {
+    margin-left:750px;
+    margin-top: -250px;
+    padding:0.75em 1em 1em 1em;
+    width:auto;
+    height:200px;
+    border:1px solid #ccc;
+    font-size:11pt;
+}

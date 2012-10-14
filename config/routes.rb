@@ -58,8 +58,5 @@ SecureNotepad::Application.routes.draw do
   # map.root :controller => 'doclist', :action => 'all'
   root :to => 'doclist#all'
   resources :doclist
-  match ':doclist/:documents' => 'doclist#documents'
-  match ':doclist/:spreadsheets' => 'doclist#spreadsheets'
-  match ':doclist/:presentations' => 'doclist#presentations'
-  match ':doclist/:pdf' => 'doclist#pdf'
+
 end
